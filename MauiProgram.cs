@@ -45,10 +45,10 @@ public static class MauiProgram
             });
         });
 #endif
-        builder.Services.AddTransient<MainPage>();
-        builder.Services.AddTransient<MainPageVm>();
-        builder.Services.AddSingleton<INavigationService, NavigationService>();
         builder.Services.AddSingleton<IFileSaver>(FileSaver.Default);
+        builder.Services.AddSingleton<INavigationService, NavigationService>();
+        builder.Services.AddTransient<MainPageVm>();
+        builder.Services.AddTransient<MainPage>();
         return builder.Build();
     }
 }

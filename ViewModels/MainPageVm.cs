@@ -5,7 +5,7 @@ namespace CellMigrationDetector;
 public class MainPageVm : ViewModelBase, IDisposable
 {
     public string MyStr { get; private set; } = "Hello World";
-    public async Task<FileResult> PickAndShow(PickOptions options)
+    public static async Task<FileResult?> PickAndShow(PickOptions options)
     {
         try
         {
@@ -24,7 +24,7 @@ public class MainPageVm : ViewModelBase, IDisposable
         }
         catch (Exception ex)
         {
-            // The user canceled or something went wrong
+            App.LogNShow(ex);
         }
 
         return null;
@@ -32,7 +32,7 @@ public class MainPageVm : ViewModelBase, IDisposable
 
     public ICommand OpenFileCmd => new Command(async () =>
     {
-        //FileResult res = await PickAndShow(PickOptions.Images).ConfigureAwait(false);
+        FileResult? res = await MainPageVm.PickAndShow(PickOptions.Images).CAF();
         MyStr = "OpenFileCmd clicked";
         await Task.Delay(100).ConfigureAwait(true);
         RaisePropertyChanged(nameof(MyStr));

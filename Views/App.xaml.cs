@@ -18,6 +18,7 @@ public partial class App : Application
         Log.Error(ex);
         DialogService.ShowAlert("Error", ex.Message);
     }
+
     public App(INavigationService navigationService)
     {
         InitializeComponent();
