@@ -1,31 +1,54 @@
 ﻿using Microsoft.Extensions.Logging;
-using CommunityToolkit.Maui;
+using Microsoft.Maui.LifecycleEvents;
 using CommunityToolkit.Maui.Storage;
+using CommunityToolkit.Maui;
 
-namespace MigrationImage
+namespace CellMigrationDetector;
+
+public static class MauiProgram
 {
-    public static class MauiProgram
+#if WINDOWS
+    public static MauiApp CreateMauiApp(Action<Microsoft.UI.Xaml.Window> maxWindow)
+#else
+    public static MauiApp CreateMauiApp()
+#endif
     {
-        public static MauiApp CreateMauiApp()
-        {
-            var builder = MauiApp.CreateBuilder();
-            builder
-                .UseMauiApp<App>()
-                .UseMauiCommunityToolkit()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
-            // Register the FolderPicker as a singleton
-            builder.Services.AddSingleton<IFolderPicker>(FolderPicker.Default);
-            // Register the MainPage as transient to make sure it can resolve the IFolderPicker dependency.
-            builder.Services.AddTransient<MainPage>();
-            return builder.Build();
-        }
+#if WINDOWS
+        builder.ConfigureLifecycleEvents(events =>
+        {
+            events.AddWindows(wndLifeCycleBuilder =>
+            {
+                wndLifeCycleBuilder
+                .OnWindowCreated(window =>
+                {
+                    App.Log.Info("Lifecycle event: MauiApp Started");
+                    maxWindow?.Invoke(window);
+                })
+                .OnClosed((window, args) =>
+                {
+                    App.Log.Info("Lifecycle event: MauiApp Closed");
+                });
+
+            });
+        });
+#endif
+        builder.Services.AddTransient<MainPage>();
+        builder.Services.AddTransient<MainPageVm>();
+        builder.Services.AddSingleton<INavigationService, NavigationService>();
+        builder.Services.AddSingleton<IFileSaver>(FileSaver.Default);
+        return builder.Build();
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace MigrationImage
+namespace CellMigrationDetector
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

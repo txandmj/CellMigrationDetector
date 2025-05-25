@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:MigrationImage"
-             xmlns:vm="clr-namespace:MigrationImage.ViewModel"
-             x:Class="MigrationImage.MainPage">
+             xmlns:local="clr-namespace:CellMigrationDetector"
+             xmlns:vm="clr-namespace:CellMigrationDetector"
+             x:Class="CellMigrationDetector.MainPage">
 
     <Grid ColumnDefinitions="Auto,Auto,*">
         <VerticalStackLayout Grid.Column="0" Padding="30,0" Spacing="25">

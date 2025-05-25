@@ -2,7 +2,7 @@ using System;
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 
-namespace MigrationImage
+namespace CellMigrationDetector
 {
     internal class Program : MauiApplication
     {

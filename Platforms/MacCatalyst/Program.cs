@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace MigrationImage
+namespace CellMigrationDetector
 {
     public class Program
     {
