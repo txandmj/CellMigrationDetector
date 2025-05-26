@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Maui.LifecycleEvents;
-using CommunityToolkit.Maui.Storage;
 using CommunityToolkit.Maui;
 
 namespace CellMigrationDetector;
@@ -45,7 +44,6 @@ public static class MauiProgram
             });
         });
 #endif
-        builder.Services.AddSingleton<IFileSaver>(FileSaver.Default);
         builder.Services.AddSingleton<INavigationService, NavigationService>();
         builder.Services.AddTransient<MainPageVm>();
         builder.Services.AddTransient<MainPage>();

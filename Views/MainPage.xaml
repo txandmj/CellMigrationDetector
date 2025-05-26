@@ -4,28 +4,22 @@
              xmlns:local="clr-namespace:CellMigrationDetector"
              xmlns:vm="clr-namespace:CellMigrationDetector"
              x:Class="CellMigrationDetector.MainPage">
+    <Grid ColumnDefinitions="Auto,*" HorizontalOptions="Fill" VerticalOptions="Fill" Margin="0" Padding="0">
+        <Border Grid.Column="0" Stroke="#3d3d3d" StrokeThickness="1" StrokeShape="RoundRectangle 5,5,5,5" Padding="8,5" HorizontalOptions="Fill" VerticalOptions="Fill" MinimumWidthRequest="200" >
+            <VerticalStackLayout Padding="1,1" Spacing="5" >
+                <Button Text="Open File" Command="{Binding OpenFileCmd}" HorizontalOptions="Start" WidthRequest="130"/>
+                <Button Text="Process Image" Command="{Binding ProcessImageCmd}" HorizontalOptions="Start" WidthRequest="130"/>
+                <Button Text="Save File" Command="{Binding SaveFileCmd}" HorizontalOptions="Start" WidthRequest="130"/>
+                <Button Text="Find Contours" Command="{Binding FindContourCmd}" HorizontalOptions="Start" WidthRequest="130"/>
+            </VerticalStackLayout>
+        </Border>
+        <Border Grid.Column="1" Stroke="#3d3d3d" StrokeThickness="1" StrokeShape="RoundRectangle 5,5,5,5" Padding="8,5" HorizontalOptions="Fill" VerticalOptions="Fill" >
+            <Grid RowDefinitions="*,Auto" HorizontalOptions="Fill" VerticalOptions="Fill" Margin="0" Padding="0" >
+                <Image Grid.Row="0" Source="{Binding ImgSource}" HorizontalOptions="Fill" VerticalOptions="Fill" Aspect="AspectFit" />
+                <Label Grid.Row="1" Text="{Binding ImgMetaData}" HorizontalOptions="Start"/>
+            </Grid>
 
-    <Grid ColumnDefinitions="Auto,Auto,*">
-        <VerticalStackLayout Grid.Column="0" Padding="30,0" Spacing="25">
-            <Image
-                Source="dotnet_bot.png"
-                HeightRequest="185"
-                Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a hovercraft number nine" />
-
-            <Label
-                Text="Hello, World!"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
-
-            <Label
-                Text="{Binding MyStr}"
-                Style="{StaticResource SubHeadline}"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
-
-            <Button Text="Click me" Command="{Binding OpenFileCmd}" />
-        </VerticalStackLayout>
+        </Border>
     </Grid>
 
 </ContentPage>

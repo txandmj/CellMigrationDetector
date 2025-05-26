@@ -1,19 +1,25 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Runtime.Versioning;
 using System.Threading.Tasks.Dataflow;
 using OneOf;
-using OneOf.Types;
 
 namespace CellMigrationDetector;
+
+public class StaticValues
+{
+    [SupportedOSPlatform("windows")]
+    public static string DefaultSaveFolderPath { get { return @"C:\Heliogen\Data\Images"; } }
+
+    [SupportedOSPlatform("windows")]
+    public static string DefaultSaveFilePath()
+    {
+        return Path.Combine(DefaultSaveFolderPath, $"Img_{DateTime.UtcNow.ToLocalTime().ToDateTimeFileString()}.png");
+    }
+}
 
 public static class Tasks
 {
@@ -241,6 +247,9 @@ public static class Tasks
 
 public static class Extensions
 {
+    public static string ToDateTimeFileString(this DateTime t)
+    { return t.ToString("yyyy-MM-dd-HH-mm-ss"); }
+
     /// <summary>
     /// Opens a file, appends the specified line to the file, creates a new line after this one,
     /// and closes the file. If the file does not exist, this method creates the file.

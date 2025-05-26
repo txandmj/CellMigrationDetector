@@ -1,15 +1,11 @@
-﻿using CommunityToolkit.Maui.Storage;
-
-namespace CellMigrationDetector;
+﻿namespace CellMigrationDetector;
 
 public partial class MainPage : ContentPage
 {
-    private readonly IFileSaver _fileSaver;
-    public MainPage(MainPageVm vm, IFileSaver fileSaver)
+    public MainPage(MainPageVm vm)
     {
         BindingContext = vm;
         InitializeComponent();
-        _fileSaver = fileSaver;
     }
 
     public Task OnCreated()
